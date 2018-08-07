@@ -12,12 +12,12 @@ const MAX_IMG_RANGE = 10;
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// drop cellection if exists
+// drop collection if exists
 console.log('cleared db for re-seed...\n');
-db.Photo.remove({}).exec(function(err, results) {
+db.Photo.remove({}).exec((err, results) => {
   if (err) {
     console.error(err);
     return process.exit(0);
@@ -26,35 +26,34 @@ db.Photo.remove({}).exec(function(err, results) {
   console.log('db cleared!\n');
   console.log('starting re-seeding....\n');
 
-  var inProgressDataBaseEntrys = [];
+  const inProgressDataBaseEntries = [];
 
-  for (let id = 1; id <= MAX_ID_RANGE; id++) {
-    for (let imgs = 1; imgs <= MAX_IMG_RANGE; imgs++) {
-      var photo = new db.Photo({
+  for (let id = 1; id <= MAX_ID_RANGE; id += 1) {
+    for (let images = 1; images <= MAX_IMG_RANGE; images += 1) {
+      const photo = new db.Photo({
         room_id: id,
-        photo_url: IMG_URL + getRandomIntInclusive(1, 75) + '.jpg',
+        photo_url: `${IMG_URL + getRandomIntInclusive(1, 75)}.jpg`,
         verified: !Math.floor(Math.random() * 2),
-        description: faker.lorem.sentence()
+        description: faker.lorem.sentence(),
       });
 
-      inProgressDataBaseEntrys.push(
-        photo.save().then(item => {
-          console.log('photo #' + item.id + ' was created');
-          return Promise.resolve(item);
-        })
+      inProgressDataBaseEntries.push(
+        photo.save().then((item) => {
+          Promise.resolve(item);
+        }), // trailing comma breaking
       );
     }
   }
 
-  Promise.all(inProgressDataBaseEntrys)
-    .then(function(results) {
-      console.log(results.length + ' entrys saved in DataBase');
+  Promise.all(inProgressDataBaseEntries)
+    .then((dbResults) => {
+      console.log(`${dbResults.length} entries saved in DataBase`);
     })
-    .catch(function(err) {
+    .catch((err) => {
       console.error(err);
     })
-    .then(function() {
-      mongoose.connection.close(function() {
+    .then(() => {
+      mongoose.connection.close(() => {
         process.exit(0);
       });
     });
