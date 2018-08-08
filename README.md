@@ -1,8 +1,6 @@
 # Airbnb Photo Component
 
-> This is an mock-up airbnb booking component built during the Hack Reactor immersive's Front End Capstone project.
-
-> This project is intended to work as a full-stack microservice integrated with my team's microservices to form a complete airbnb single item page.
+> This is an mock-up airbnb booking component load-tested during the Hack Reactor immersive's System Design Capstone project.
 
 ## Related Projects
 
@@ -73,3 +71,10 @@ To run tests
 ```sh
 npm test
 ```
+
+## REST API
+
+- GET api/rooms/:id/photos/ - gets photo by id from database
+- POST api/rooms/:id/photos/ - adds photo by id to database
+- PUT api/rooms/:id/photos/ - updates photo by id in database
+- DELETE api/rooms/:id/photos/ - removes photo by id from database
