@@ -1,23 +1,22 @@
 const mongoose = require('mongoose');
 const faker = require('faker');
-const path = require('path');
+// const path = require('path');
 
 const db = require('./models/');
 
 const IMG_URL = 'https://s3-us-west-1.amazonaws.com/airfec2018/photos/file-';
 
-const MAX_ID_RANGE = 100;
+const MAX_ID_RANGE = 10000000;
 const MAX_IMG_RANGE = 10;
 
-function getRandomIntInclusive(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+const getRandomIntInclusive = (min, max) => {
+  const minRounded = Math.ceil(min);
+  return Math.floor(Math.random() * (Math.floor(max) - minRounded + 1)) + minRounded;
+};
 
 // drop collection if exists
 console.log('cleared db for re-seed...\n');
-db.Photo.remove({}).exec((err, results) => {
+db.Photo.remove({}).exec((err) => {
   if (err) {
     console.error(err);
     return process.exit(0);
@@ -37,11 +36,11 @@ db.Photo.remove({}).exec((err, results) => {
         description: faker.lorem.sentence(),
       });
 
-      inProgressDataBaseEntries.push(
-        photo.save().then((item) => {
-          Promise.resolve(item);
-        }), // trailing comma breaking
-      );
+      const result = photo.save().then((item) => {
+        Promise.resolve(item);
+      });
+
+      inProgressDataBaseEntries.push(result);
     }
   }
 
