@@ -8,13 +8,13 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "db:seed": "node generate.js",
+    "db:seed": "time node --max-old-space-size=4096 generate.js",
     "build": "grunt deploy",
     "build:dev": "grunt build",
     "start:dev": "nodemon server/index.js",
     "start": "node generate.js && node server/",
     "test": "jest",
-    "docker:update": "./update.sh" ,
+    "docker:update": "./update.sh",
     "docker:deploy": "docker tag airfec_photos airfec/airfec_photos:latest && docker push airfec/airfec_photos"
   },
   "dependencies": {
