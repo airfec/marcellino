@@ -1,21 +1,17 @@
-
 // generate primary key table
 
-const faker = require("faker");
-const fs = require("fs");
+const faker = require('faker');
+const fs = require('fs');
 
-const IMG_URL = "https://s3-us-west-1.amazonaws.com/airfec2018/photos/file-";
-
+const IMG_URL = 'https://s3-us-west-1.amazonaws.com/airfec2018/photos/file-';
 
 const getRandomIntInclusive = (min, max) => {
   const minRounded = Math.ceil(min);
-  return (
-    Math.floor(Math.random() * (Math.floor(max) - minRounded + 1)) + minRounded
-  );
+  return Math.floor(Math.random() * (Math.floor(max) - minRounded + 1)) + minRounded;
 };
 
 const generateData = (start, end, fileNumber) => {
-  let csv = "";
+  let csv = '';
   const stream = fs.createWriteStream(`data/data${fileNumber}.csv`);
   for (let id = start; id <= end; id += 1) {
     for (let images = 1; images <= 10; images += 1) {
@@ -25,15 +21,14 @@ const generateData = (start, end, fileNumber) => {
       const desc = faker.lorem.sentence();
       csv = `${id},${name},${url},${verified},${desc},\n`;
       stream.write(csv);
-
     }
   }
   stream.end();
 };
 
-let start = 9000001;
-let end = 10000001;
+const start = 9000001;
+const end = 10000001;
 
-console.time(`data`);
+console.time('data');
 setTimeout(() => generateData(start, end, 10), 0);
-console.timeEnd(`data`);
+console.timeEnd('data');

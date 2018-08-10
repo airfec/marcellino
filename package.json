@@ -1,14 +1,15 @@
 {
-  "name": "",
+  "name": "photocomponent",
   "version": "1.0.0",
   "description": "",
-  "author": "",
+  "author": "Nicholas Vincent-Hill",
   "license": "",
   "engines": {
     "node": ">=6.13.0"
   },
   "scripts": {
     "generate": "time node --max-old-space-size=4096 generate.js",
+    "seedDB": "PGUSER=nick PGPASSWORD=qw3rty PGDATABASE=sdcphotos node --max-old-space-size=4096 models/Photo.js",
     "build": "grunt deploy",
     "build:dev": "grunt build",
     "start:dev": "nodemon server/index.js",
