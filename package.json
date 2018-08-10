@@ -8,7 +8,7 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "db:seed": "time node --max-old-space-size=4096 generate.js",
+    "generate": "time node --max-old-space-size=4096 generate.js",
     "build": "grunt deploy",
     "build:dev": "grunt build",
     "start:dev": "nodemon server/index.js",
@@ -24,6 +24,7 @@
     "express": "^4.16.3",
     "faker": "^4.1.0",
     "mongoose": "^5.2.4",
+    "pg": "^7.4.3",
     "react": "^16.4.1",
     "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.4.1",

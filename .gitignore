@@ -26,3 +26,5 @@ coverage
 build/
 dist/
 
+# data
+data/
