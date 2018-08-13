@@ -22,14 +22,16 @@ const pool = new Pool({
   connectionString,
 });
 
+const fileNumber = 10;
+
 const loadCSV = () => {
-  const query = "COPY photos(_id, id, name, url, verified, description) FROM '/home/nick/projects/hackreactor/systemdesigncapstone/Photo-Carousel-Service/data/data1.csv' WITH (FORMAT csv);";
+  const query = `COPY photos(_id, id, name, url, verified, description) FROM '/home/nick/projects/hackreactor/systemdesigncapstone/Photo-Carousel-Service/data/data${fileNumber}.csv' WITH (FORMAT csv);`;
   console.log(query);
   pool.query(query, (err, res) => {
     if (err) {
-      console.log('Error copying file 01', err);
+      console.log(`Error copying file ${fileNumber}`, err);
     }
-    console.log('File 01 loaded successfully', res);
+    console.log(`File ${fileNumber} loaded successfully`, res);
     pool.end();
   });
 };
